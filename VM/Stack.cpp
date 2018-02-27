@@ -115,7 +115,7 @@ void Stack::doPrimitive() {
 			std::cout << "     RAW: " << memory[sp] << std::endl;
 			break;
 		case 17: // ASCII VALUE
-			std::cout << "ASCII: " << char(memory[sp - 1]) << std::endl;
+			std::cout << "ASCII: " << char(memory[sp]) << std::endl;
 			break;
 		}
 	}
