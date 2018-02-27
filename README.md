@@ -31,3 +31,19 @@ To program something for the vm follow this guide:
 | PRNTR | N/A | Print raw value of the top of the stack |
 | PRNTA | N/A | Print the raw value of the top of the stack |
 | HALT | N/A | End the program |
+
+### Example program
+```Assembly
+PSH 36 
+PSH 36 
+ADD 
+PRNTA 
+HALT 
+```
+
+This is the resulting stack:
+
+| STEP 1 | STEP 2 | STEP 3 |
+| :-: | :-: | :-: | 
+| 36 |  36 | 72 |
+| 0  |  36 | 0 |
