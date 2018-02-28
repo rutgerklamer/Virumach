@@ -45,8 +45,8 @@ HALT
 
 This is the resulting stack:
 
-|      |  STEP 1 |   STEP 2  |  STEP 3 |  STEP 4 |  STEP 5 |
-| :-:  |   :-:   |    :-:    |   :-:   |   :-:   |   :-:   |
-|      |   0     |    1  <-  |   0     |    0    |    0    |
-|      |   1 <-  |    1      |   2 <-  |   2  <- |   2 <-  |
-| CODE: | PSH 36 |   PSH 36  |   ADD   |   PRNTA |  HALT   |  
+|          |  STEP 1 |   STEP 2  |  STEP 3 |  STEP 4 |  STEP 5 |
+| :-:      |   :-:   |    :-:    |   :-:   |   :-:   |   :-:   |
+| STACK #1 |   0     |    1  <-  |   0     |    0    |    0    |
+| STACK #0 |   1 <-  |    1      |   2 <-  |   2  <- |   2 <-  |
+| CODE:    | PSH 36  |   PSH 36  |   ADD   |   PRNTA |  HALT   |  
