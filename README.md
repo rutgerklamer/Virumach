@@ -36,8 +36,8 @@ To program something for the vm follow this guide:
 
 ### Example program
 ```Assembly
-PSH 36 
-PSH 36 
+PSH 1 
+PSH 1 
 ADD 
 PRNTA 
 HALT 
@@ -45,7 +45,8 @@ HALT
 
 This is the resulting stack:
 
-|  STEP 1 |   STEP 2  |  STEP 3 |
-|   :-:   |    :-:    |   :-:   | 
-|   0     |    36 <-  |   0     |
-|   36 <- |    36     |   72 <- |
+|      |  STEP 1 |   STEP 2  |  STEP 3 |  STEP 4 |  STEP 5 |
+| :-:  |   :-:   |    :-:    |   :-:   |   :-:   |   :-:   |
+|      |   0     |    1  <-  |   0     |    0    |    0    |
+|      |   1 <-  |    1      |   2 <-  |   2  <- |   2 <-  |
+| CODE: | PSH 36 |   PSH 36  |   ADD   |   PRNTA |  HALT   |  
