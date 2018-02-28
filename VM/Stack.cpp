@@ -2,7 +2,7 @@
 
 Stack::Stack()
 {
-	pc = 100;
+	pc = 1000;
 	sp = 0;
 	false_if = 0;
 	memory.reserve(1000000);
@@ -32,36 +32,40 @@ void Stack::doPrimitive() {
 		false_if = 0;
 		switch (dat)
 		{
-			int a;
 		case 0: // HALT
 			//std::cout << "HALT" << std::endl;
 			running = 0;
 			break;
 		case 1: // ADD
-			a = memory[sp];
-			memory[sp] = 0;
-			//std::cout << "ADD: " << a << "  " << memory[sp - 1] << std::endl;
-			memory[sp - 1] = memory[sp - 1] + a;
+			registers[TMP_0] = memory[sp];
+			//std::cout << "ADD: " << memory[sp - 1] << "  " << registers[TMP_0] << std::endl;
+			memory[sp - 1] = memory[sp - 1] + registers[TMP_0];
 			sp--;
 			break;
 		case 2: // SUB
-			//std::cout << "SUB: " << memory[sp - 1] << "  " << memory[sp] << std::endl;
-			memory[sp - 1] = memory[sp - 1] - memory[sp];
+			registers[TMP_0] = memory[sp];
+			//std::cout << "SUB: " << memory[sp - 1] << "  " << registers[TMP_0] << std::endl;
+			memory[sp - 1] = memory[sp - 1] - registers[TMP_0];
 			sp--;
 			break;
 		case 3: // MUL
 			//std::cout << "MUL: " << memory[sp - 1] << "  " << memory[sp] << std::endl;
-			memory[sp - 1] = memory[sp - 1] * memory[sp];
+			registers[TMP_0] = memory[sp];
+			//std::cout << "ADD: " << a << "  " << memory[sp - 1] << std::endl;
+			memory[sp - 1] = memory[sp - 1] * registers[TMP_0];
 			sp--;
 			break;
 		case 4: // DIV
 			//std::cout << "DIV: " << memory[sp - 1] << "  " << memory[sp] << std::endl;
-			memory[sp - 1] = memory[sp - 1] / memory[sp];
+			registers[TMP_0] = memory[sp];
+			//std::cout << "ADD: " << a << "  " << memory[sp - 1] << std::endl;
+			memory[sp - 1] = memory[sp - 1] / registers[TMP_0];
 			sp--;
 			break;
 		case 5: // MOD
-			//std::cout << "MOD: " << memory[sp - 1] << "  " << memory[sp] << std::endl;
-			memory[sp - 1] = memory[sp - 1] % memory[sp];
+			registers[TMP_0] = memory[sp];
+			//std::cout << "ADD: " << a << "  " << memory[sp - 1] << std::endl;
+			memory[sp - 1] = memory[sp - 1] % registers[TMP_0];
 			sp--;
 			break;
 		case 6: // PSHR
@@ -107,14 +111,22 @@ void Stack::doPrimitive() {
 		case 14: // ENDIF
 			false_if--;
 			break;
-		case 15:
+		case 15: //IF E
+			if (memory[sp] != getData(memory[pc + 1]))
+				false_if++;
+			break;
+		case 16: //IF NE
 			if (memory[sp] == getData(memory[pc + 1]))
 				false_if++;
 			break;
-		case 16: // RAW VALUE
+		case 17: //POP:
+			memory[sp] = 0;
+			sp--;
+			break;
+		case 18: // RAW VALUE
 			std::cout << "     RAW: " << memory[sp] << std::endl;
 			break;
-		case 17: // ASCII VALUE
+		case 19: // ASCII VALUE
 			std::cout << "ASCII: " << char(memory[sp]) << std::endl;
 			break;
 		}
@@ -122,7 +134,7 @@ void Stack::doPrimitive() {
 	else if (dat == 14) {
 		false_if--;
 	}
-	else if (dat == 13) {
+	else if (dat == 13 || dat == 15 || dat == 16) {
 		false_if++;
 	}
 }
