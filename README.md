@@ -15,6 +15,7 @@ To program something for the vm follow this guide:
 | Operation | Arguments | Explanation |
 | ----------- | ----------- | ----------- |
 | PSH |  N  | Push N to the stack |
+| POP | N/A | POP the top value of the stack |
 | ADD |  N/A  | Consume the top two values and add them together |
 | SUB |  N/A  | Consume the top two values and subtract them from eachother |
 | MULT |  N/A  | Consume the top two values and multiply them  |
@@ -27,6 +28,7 @@ To program something for the vm follow this guide:
 | PSHREG | R | Push the value of the top of the stack to register R|
 | IF | N/A | Goes through this code as long as the top of the stack != 0 |
 | IFE | N | Goes through this code as long as the top of the stack == N |
+| IFNE | N | Goes through this code as long as the top of the stack != N |
 | ENDIF | N/A | End of the if statement |
 | PRNTR | N/A | Print raw value of the top of the stack |
 | PRNTA | N/A | Print the raw value of the top of the stack |
