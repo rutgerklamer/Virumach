@@ -43,7 +43,7 @@ HALT
 
 This is the resulting stack:
 
-| STEP 1 | STEP 2 | STEP 3 |
-| :-: | :-: | :-: | 
-| 36 |  36 | 72 |
-| 0  |  36 | 0 |
+|  STEP 1 |   STEP 2  |  STEP 3 |
+|   :-:   |    :-:    |   :-:   | 
+|   0     |    36 <-  |   0     |
+|   36 <- |    36     |   72 <- |
