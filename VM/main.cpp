@@ -57,9 +57,7 @@ void makeCode()
 		else if (m_program[i] == "MOD") {
 			m_prog.push_back(0x40000005); // 5
 		}
-		else if (m_program[i] == "PSHR") {
-			m_prog.push_back(0x40000006); // 6
-		}
+
 		else if (m_program[i] == "SWAP") {
 			m_prog.push_back(0x40000007); // 7
 		}
@@ -87,11 +85,17 @@ void makeCode()
 		else if (m_program[i] == "IFE") {
 			m_prog.push_back(0x4000000F); // 15
 		}
-		else if (m_program[i] == "PRNTR") {
+		else if (m_program[i] == "IFNE") {
 			m_prog.push_back(0x40000010); // 16
 		}
-		else if (m_program[i] == "PRNTA") {
+		else if (m_program[i] == "POP") {
 			m_prog.push_back(0x40000011); // 17
+		}
+		else if (m_program[i] == "PRNTR") {
+			m_prog.push_back(0x40000012); // 18
+		}
+		else if (m_program[i] == "PRNTA") {
+			m_prog.push_back(0x40000013); // 19
 		}
 		else {
 			m_prog.push_back(std::stoi(m_program[i]));
