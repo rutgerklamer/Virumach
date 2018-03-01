@@ -80,8 +80,10 @@ void Stack::doPrimitive() {
 			break;
 		case 8: // PSH
 			//std::cout << "PSH: " << getData(memory[pc+1]) << std::endl;
-			sp++;
-			memory[sp] = getData(memory[++pc]);
+			while (getType(memory[pc + 1]) != 1) {
+				sp++;
+				memory[sp] = getData(memory[++pc]);
+			}
 			break;
 		case 9: // SET REG
 			//std::cout << "SET REG: " << getData(memory[pc+1]) << " TO: " << getData(memory[pc+2]) << std::endl;
@@ -120,14 +122,44 @@ void Stack::doPrimitive() {
 				false_if++;
 			break;
 		case 17: //POP:
-			memory[sp] = 0;
-			sp--;
+			if (getType(pc + 1) != 1 && sp - getData(memory[pc + 1]) - 1 >= -1) {
+				for (int i = 0; i < getData(memory[pc + 1])+1; i++)
+					memory[sp--] = 0;
+			}
+			else if (getType(pc + 1) != 0 || getType(pc + 1) != 2 || getType(pc + 1) != 3) {
+				memory[sp--] = 0;
+			}
+			else {
+				std::cout << "YOU'RE GOING OUT OF STACK //POP " << getData(memory[pc + 1]) << std::endl;
+			}
 			break;
 		case 18: // RAW VALUE
-			std::cout << "     RAW: " << memory[sp] << std::endl;
+			if (getType(pc + 1) != 1 && sp - getData(memory[pc + 1]) - 1 >= -1) {
+				sp -= getData(memory[pc + 1]) - 1;
+				std::cout << "     RAW: " << std::flush;
+				for (int i = 0; i < getData(memory[pc + 1]); i++)
+					std::cout << (memory[sp++]) << std::flush;
+			}
+			else if (getType(pc + 1) != 0 || getType(pc + 1) != 2 || getType(pc + 1) != 3) {
+				std::cout << "     RAW: " << (memory[sp]) << std::endl;
+			}
+			else {
+				std::cout << "YOU'RE GOING OUT OF STACK //R " << getData(memory[pc + 1]) << std::endl;
+			}
 			break;
 		case 19: // ASCII VALUE
-			std::cout << "ASCII: " << char(memory[sp]) << std::endl;
+			if (getType(pc + 1) != 1 && sp - getData(memory[pc + 1]) - 1 >= -1) {
+				sp -= getData(memory[pc + 1])-1;
+				std::cout << "     ASCII: " << std::flush;
+				for (int i = 0; i < getData(memory[pc + 1]); i++)
+					std::cout << char(memory[sp++]) << std::flush;
+			}
+			else if (getType(pc + 1) != 0 || getType(pc + 1) != 2 || getType(pc + 1) != 3) {
+				std::cout << "     ASCII: " << char(memory[sp]) << std::endl;
+			}
+			else {
+				std::cout << "YOU'RE GOING OUT OF STACK //A " << std::endl;
+			}
 			break;
 		}
 	}
