@@ -8,7 +8,7 @@ To program something for the vm follow this guide:
 | Arguments | Explanation |
 | --------- | ----------- |
 | N | N is any number you want |
-| NS| NS is the same as N, except you can set N directly behind each other (PSH 1 2 3)|
+| NS| NS is the same as N, except you can set N directly behind each other (PSH 1 2 3 == PSH 1 PSH 2 PSH 3)|
 | R | Register number, 10 for stack pointer, 11 for program counter |
 |N/A| There should be nothing here |
 
