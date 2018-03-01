@@ -40,18 +40,20 @@ To program something for the vm follow this guide:
 
 ### Example program
 ```Assembly
-PSH 36 
-PSH 36 
-ADD 
-PRNTA 
-HALT 
+"$$"
+ADD
+PSHREG 1
+PSHSTCK 1
+PRNTA 2
+HALT
 ```
 
 This is the resulting stack:
 
-|          |  STEP 1 |   STEP 2  |  STEP 3 |  STEP 4 |  STEP 5 |
-| :-:      |   :-:   |    :-:    |   :-:   |   :-:   |   :-:   |
-| STACK #1 |   0     |    36  <- |   0     |    0    |    0    |
-| STACK #0 |   36 <- |    36     |   72 <- |  72 <-  |   72 <- |
-| CODE:    | PSH 36  |   PSH 36  |   ADD   |   PRNTA |  HALT   |  
-| OUTPUT:  |         |           |         |    H    |    H    |  
+|          |  STEP 1 |   STEP 2 |  STEP 3 |  STEP 4  |  STEP 5   | STEP 6  | STEP 7  |
+| :-:      |   :-:   |    :-:   |   :-:   |   :-:    |   :-:     |   :-:   |   :-:   |
+| STACK #1 |   0     |    36  <-|   0     |    0     |    72 <-  |    0    |    0    |
+| STACK #0 |   36 <- |    36    |   72 <- |  72 <-   |     72    |   72 <- |   72 <- |
+| REG   #0 |         |          |         |    72    |     72    |    72   |    72   |
+| CODE:    |   "$    |    $"    |   ADD   | PSHREG 1 | PSHSTCK 1 | PRNTA 2 |   HALT  | 
+| OUTPUT:  |         |          |         |          |           |   HH    |    HH   |  
