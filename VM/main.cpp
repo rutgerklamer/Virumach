@@ -20,7 +20,7 @@ int main()
 		std::istringstream buf(str);
 		std::istream_iterator<std::string> beg(buf), end;
 
-		std::vector<std::string> tokens(beg, end); // done!
+		std::vector<std::string> tokens(beg, end); 
 		for (auto& s : tokens)
 			m_program.push_back(s);
 	}
@@ -35,9 +35,49 @@ int main()
 
 void makeCode()
 {
+	int string = 0;
 	for (int i = 0; i < m_program.size(); i++) {
 		//std::cout << m_program[i] << std::endl;
+		if (m_program[i][0] == '\"') {
+			m_program[i][0] = ' ';
+			string++;
+			if (m_program[i].find("\"") != std::string::npos) {
+				string++;
+			}
+		}
+		else if (m_program[i].find("\"") != std::string::npos) {
+			string++;
+		}
+		if (string == 1) {
+			int ss = 0;
+			if (m_program[i].find("\"") != std::string::npos) 
+				ss = 1;
+			if (m_program[i][0] != ' ') {
+				m_prog.push_back(0x40000008); // 8
+				m_prog.push_back((i32)(' '));
+			}
+			for (int s = ss; s < m_program[i].size(); s++) {
+				m_prog.push_back(0x40000008); // 8
+				m_prog.push_back((i32)(m_program[i][s]));
+			}
+		}
+		else if (string == 2) {
+			int ss = 0;
+			if (m_program[i][0] == '"' || m_program[i][0] == ' ') {
+				ss = 1;
+			}
+			if (m_program[i][0] != ' ') {
+				m_prog.push_back(0x40000008); // 8
+				m_prog.push_back((i32)(' '));
+			}
+			for (int s = ss; s < m_program[i].size() - 1; s++) {
+				m_prog.push_back(0x40000008); // 8
+				m_prog.push_back((i32)(m_program[i][s]));
+			}
+		}
+		if (string == 0) {
 		if (m_program[i][0] == '/' && m_program[i][1] == '/') {
+
 		}
 		else if (m_program[i] == "HALT") {
 			m_prog.push_back(0x40000000); // 0
@@ -99,6 +139,9 @@ void makeCode()
 		}
 		else {
 			m_prog.push_back(std::stoi(m_program[i]));
+		}
+		} else if (string == 2) {
+			string = 0;
 		}
 	}
 }
