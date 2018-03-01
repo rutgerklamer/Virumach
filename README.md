@@ -8,14 +8,16 @@ To program something for the vm follow this guide:
 | Arguments | Explanation |
 | --------- | ----------- |
 | N | N is any number you want |
+| NS| NS is the same as N, except you can set N directly behind each other (PSH 1 2 3)|
 | R | Register number, 10 for stack pointer, 11 for program counter |
+|N/A| There should be nothing here |
 
 
 ### Cell manipulation
 | Operation | Arguments | Explanation |
 | ----------- | ----------- | ----------- |
-| PSH |  N  | Push N to the stack |
-| POP | N/A | POP the top value of the stack |
+| PSH |  NS | Push NS to the stack |
+| POP | N | POP N amount of values from the top of the stack |
 | ADD |  N/A  | Consume the top two values and add them together |
 | SUB |  N/A  | Consume the top two values and subtract them from eachother |
 | MULT |  N/A  | Consume the top two values and multiply them  |
@@ -30,9 +32,11 @@ To program something for the vm follow this guide:
 | IFE | N | Goes through this code as long as the top of the stack == N |
 | IFNE | N | Goes through this code as long as the top of the stack != N |
 | ENDIF | N/A | End of the if statement |
-| PRNTR | N/A | Print raw value of the top of the stack |
-| PRNTA | N/A | Print the raw value of the top of the stack |
+| PRNTR | N | Print N amount of raw values counting from the top of the stack |
+| PRNTA | N | Print N amount of ASCII values counting from the top of the stack |
 | HALT | N/A | End the program |
+| " | N/A | Use one " to start a string, every raw value of the chars inside will get pushed to the stack (from left to right) till there is another " sign |
+
 
 ### Example program
 ```Assembly
