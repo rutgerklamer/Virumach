@@ -97,7 +97,6 @@ void makeCode()
 		else if (m_program[i] == "MOD") {
 			m_prog.push_back(0x40000005); // 5
 		}
-
 		else if (m_program[i] == "SWAP") {
 			m_prog.push_back(0x40000007); // 7
 		}
@@ -107,7 +106,7 @@ void makeCode()
 		else if (m_program[i] == "SET") {
 			m_prog.push_back(0x40000009); // 9
 		}
-		else if (m_program[i] == "MV") {
+		else if (m_program[i] == "CPY") {
 			m_prog.push_back(0x4000000A); // 10
 		}
 		else if (m_program[i] == "PSHSTCK") {
@@ -131,11 +130,14 @@ void makeCode()
 		else if (m_program[i] == "POP") {
 			m_prog.push_back(0x40000011); // 17
 		}
-		else if (m_program[i] == "PRNTR") {
+		else if (m_program[i] == "MV") {
 			m_prog.push_back(0x40000012); // 18
 		}
-		else if (m_program[i] == "PRNTA") {
+		else if (m_program[i] == "PRNTR") {
 			m_prog.push_back(0x40000013); // 19
+		}
+		else if (m_program[i] == "PRNTA") {
+			m_prog.push_back(0x40000014); // 20
 		}
 		else {
 			m_prog.push_back(std::stoi(m_program[i]));
