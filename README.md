@@ -25,7 +25,8 @@ To program something for the vm follow this guide:
 | MOD |  N/A  | Consume the top two values and apply modulus to them |
 | SWAP | N/A | Swap the place of the top two values on the stack |
 | SET | R, N | Set value N to register R |
-| MV | R, R | Move the value of register R(1) to R(2) |
+| MV | R, R | Move the value of register R(1) to R(2, set R(1) to 0 |
+| CPY | R, R | Copy the value of register R(1) to R(2) |
 | PSHSTCK | R | Push value of register R to the top of the stack |
 | PSHREG | R | Push the value of the top of the stack to register R|
 | IF | N/A | Goes through this code as long as the top of the stack != 0 |
