@@ -90,7 +90,7 @@ void Stack::doPrimitive() {
 			registers[getData(memory[pc + 1])] = getData(memory[pc + 2]);
 			pc += 2;
 			break;
-		case 10: // MOVE REG
+		case 10: // COPY REG
 			//std::cout << "MV REG: " << getData(memory[pc + 1]) << " TO REG: " << getData(memory[pc + 2]) << std::endl;
 			registers[getData(memory[pc + 2])] = registers[getData(memory[pc + 1])];
 			pc += 2;
@@ -133,7 +133,13 @@ void Stack::doPrimitive() {
 				std::cout << "YOU'RE GOING OUT OF STACK //POP " << getData(memory[pc + 1]) << std::endl;
 			}
 			break;
-		case 18: // RAW VALUE
+		case 18: // COPY REG
+			//std::cout << "MV REG: " << getData(memory[pc + 1]) << " TO REG: " << getData(memory[pc + 2]) << std::endl;
+			registers[getData(memory[pc + 2])] = registers[getData(memory[pc + 1])];
+			registers[getData(memory[pc + 1])] = 0;
+			pc += 2;
+			break;
+		case 19: // RAW VALUE
 			if (getType(pc + 1) != 1 && sp - getData(memory[pc + 1]) - 1 >= -1) {
 				sp -= getData(memory[pc + 1]) - 1;
 				std::cout << "     RAW: " << std::flush;
@@ -147,7 +153,7 @@ void Stack::doPrimitive() {
 				std::cout << "YOU'RE GOING OUT OF STACK //R " << getData(memory[pc + 1]) << std::endl;
 			}
 			break;
-		case 19: // ASCII VALUE
+		case 20: // ASCII VALUE
 			if (getType(pc + 1) != 1 && sp - getData(memory[pc + 1]) - 1 >= -1) {
 				sp -= getData(memory[pc + 1])-1;
 				std::cout << "     ASCII: " << std::flush;
