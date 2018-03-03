@@ -8,7 +8,7 @@
 typedef int32_t i32;
 
 typedef enum {
-	$0, $1, $2, $3, $4, $5, $6, $7, $8, $9, SP, IP,
+	$0, $1, $2, $3, $4, $5, $6, $7, $8, $9, SP, IP, TMP_0, TMP_1, TMP_2, TMP_3, TMP_4, WHILETYPE, WHILE,
 	NUM_OF_REGISTERS
 } Registers;
 
@@ -23,6 +23,7 @@ class Stack {
 	i32 dat = 0;			 // data
 	i32 running = 1;		 // running cehck
 	int false_if;
+	int false_while;
 
 	i32 getType(i32 instruction);
 	i32 getData(i32 instruction);
