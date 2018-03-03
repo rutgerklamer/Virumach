@@ -37,7 +37,8 @@ To program something for the vm follow this guide:
 | PRNTA | N | Print N amount of ASCII values counting from the top of the stack |
 | HALT | N/A | End the program |
 | " | N/A | Use one " to start a string, every raw value of the chars inside will get pushed to the stack (from left to right) till there is another " sign |
-
+| INCR | N/A | Increment the top item on the stack |
+| DECR | N/A | Decrement the top item on the stack |
 
 ### Example program
 ```Assembly
