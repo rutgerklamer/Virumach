@@ -5,6 +5,7 @@ Stack::Stack()
 	pc = 1000;
 	sp = 0;
 	false_if = 0;
+	false_while = 0;
 	memory.reserve(1000000);
 	for (i32 i = 0; i < 1000000; i++)
 		memory.push_back(0);
@@ -33,7 +34,7 @@ void Stack::doPrimitive() {
 		switch (dat)
 		{
 		case 0: // HALT
-			//std::cout << "HALT" << std::endl;
+				//std::cout << "HALT" << std::endl;
 			running = 0;
 			break;
 		case 1: // ADD
@@ -49,14 +50,14 @@ void Stack::doPrimitive() {
 			sp--;
 			break;
 		case 3: // MUL
-			//std::cout << "MUL: " << memory[sp - 1] << "  " << memory[sp] << std::endl;
+				//std::cout << "MUL: " << memory[sp - 1] << "  " << memory[sp] << std::endl;
 			registers[TMP_0] = memory[sp];
 			//std::cout << "ADD: " << a << "  " << memory[sp - 1] << std::endl;
 			memory[sp - 1] = memory[sp - 1] * registers[TMP_0];
 			sp--;
 			break;
 		case 4: // DIV
-			//std::cout << "DIV: " << memory[sp - 1] << "  " << memory[sp] << std::endl;
+				//std::cout << "DIV: " << memory[sp - 1] << "  " << memory[sp] << std::endl;
 			registers[TMP_0] = memory[sp];
 			//std::cout << "ADD: " << a << "  " << memory[sp - 1] << std::endl;
 			memory[sp - 1] = memory[sp - 1] / registers[TMP_0];
@@ -73,30 +74,30 @@ void Stack::doPrimitive() {
 			memory[sp] = memory[sp - 1];
 			break;
 		case 7: // SWAP
-			//std::cout << "SWAP: " << memory[sp - 1] << "  " << memory[sp] << std::endl;
+				//std::cout << "SWAP: " << memory[sp - 1] << "  " << memory[sp] << std::endl;
 			temp = memory[sp - 1];
 			memory[sp - 1] = memory[sp];
 			memory[sp] = temp;
 			break;
 		case 8: // PSH
-			//std::cout << "PSH: " << getData(memory[pc+1]) << std::endl;
+				//std::cout << "PSH: " << getData(memory[pc+1]) << std::endl;
 			while (getType(memory[pc + 1]) != 1) {
 				sp++;
 				memory[sp] = getData(memory[++pc]);
 			}
 			break;
 		case 9: // SET REG
-			//std::cout << "SET REG: " << getData(memory[pc+1]) << " TO: " << getData(memory[pc+2]) << std::endl;
+				//std::cout << "SET REG: " << getData(memory[pc+1]) << " TO: " << getData(memory[pc+2]) << std::endl;
 			registers[getData(memory[pc + 1])] = getData(memory[pc + 2]);
 			pc += 2;
 			break;
 		case 10: // COPY REG
-			//std::cout << "MV REG: " << getData(memory[pc + 1]) << " TO REG: " << getData(memory[pc + 2]) << std::endl;
+				 //std::cout << "MV REG: " << getData(memory[pc + 1]) << " TO REG: " << getData(memory[pc + 2]) << std::endl;
 			registers[getData(memory[pc + 2])] = registers[getData(memory[pc + 1])];
 			pc += 2;
 			break;
 		case 11: // PSHSTCK
-			//std::cout << "PSHSTCK: " << getData(memory[pc + 1]) << std::endl;
+				 //std::cout << "PSHSTCK: " << getData(memory[pc + 1]) << std::endl;
 			sp++;
 			memory[sp] = registers[getData(memory[pc + 1])];
 			pc++;
@@ -123,7 +124,7 @@ void Stack::doPrimitive() {
 			break;
 		case 17: //POP:
 			if (getType(pc + 1) != 1 && sp - getData(memory[pc + 1]) - 1 >= -1) {
-				for (int i = 0; i < getData(memory[pc + 1])+1; i++)
+				for (int i = 0; i < getData(memory[pc + 1]) + 1; i++)
 					memory[sp--] = 0;
 			}
 			else if (getType(pc + 1) != 0 || getType(pc + 1) != 2 || getType(pc + 1) != 3) {
@@ -134,7 +135,7 @@ void Stack::doPrimitive() {
 			}
 			break;
 		case 18: // COPY REG
-			//std::cout << "MV REG: " << getData(memory[pc + 1]) << " TO REG: " << getData(memory[pc + 2]) << std::endl;
+				 //std::cout << "MV REG: " << getData(memory[pc + 1]) << " TO REG: " << getData(memory[pc + 2]) << std::endl;
 			registers[getData(memory[pc + 2])] = registers[getData(memory[pc + 1])];
 			registers[getData(memory[pc + 1])] = 0;
 			pc += 2;
@@ -155,7 +156,7 @@ void Stack::doPrimitive() {
 			break;
 		case 20: // ASCII VALUE
 			if (getType(pc + 1) != 1 && sp - getData(memory[pc + 1]) - 1 >= -1) {
-				sp -= getData(memory[pc + 1])-1;
+				sp -= getData(memory[pc + 1]) - 1;
 				std::cout << "     ASCII: " << std::flush;
 				for (int i = 0; i < getData(memory[pc + 1]); i++)
 					std::cout << char(memory[sp++]) << std::flush;
@@ -167,6 +168,27 @@ void Stack::doPrimitive() {
 				std::cout << "YOU'RE GOING OUT OF STACK //A " << std::endl;
 			}
 			break;
+		case 21: // incr
+			memory[sp]++;
+			break;
+		case 22: // incr
+			memory[sp]++;
+			break;
+		/* case 23: //WHILE // 0
+			if (memory[sp] == 0)
+				false_while++;
+			break;
+		case 24: // ENDWHILE
+			false_while--;
+			break;
+		case 25: //WHILEE // 1
+			if (memory[sp] != getData(memory[pc + 1]))
+				false_while++;
+			else {
+				registers[WHILETYPE] = 1;
+				registers[WHILE] = getData(memory[pc + 1]);
+			}
+			break; */
 		}
 	}
 	else if (dat == 14) {
@@ -215,4 +237,4 @@ void Stack::loadProgram(std::vector<i32> prog)
 	for (i32 i = 0; i < prog.size(); i++) {
 		memory[pc + i] = prog[i];
 	}
-}
+}	
